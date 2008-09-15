@@ -63,7 +63,7 @@ class DeploymentsController < ApplicationController
     @stages.each do |stage|
       @deployment = stage.deployments.build
       @deployment.user = current_user
-      @deployment.task = "deploy:deploy"
+      @deployment.task = "deploy:default"
       @deployment.description = @deployment.task
       @deployment.save
       @deployment.deploy_in_background!
