@@ -14,6 +14,8 @@ class Stage < ActiveRecord::Base
   
   tz_time_attributes :created_at, :updated_at
   
+  acts_as_taggable
+  
   # fake attr (Hash) that hold info why deployment is not possible
   # (think model.errors lite)
   attr_accessor :deployment_problems
