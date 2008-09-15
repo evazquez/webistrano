@@ -42,6 +42,10 @@
 		  <b>#Hosts:</b>
 		  <%=h @stage.hosts.count %>
 		</p>
+		<p>
+		  <b>Tags:</b>
+		  <%=h @stage.tag_list %>
+		</p>
 		<br />
 		<%= link_to 'Edit Stage', edit_project_stage_path(current_project, @stage), :class => 'arrow_link' %> | 
 		<%= link_to 'Delete', project_stage_path(current_project, @stage), :confirm => 'Are you sure?', :method => :delete, :class => 'arrow_link'  %> | 

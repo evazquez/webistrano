@@ -48,6 +48,7 @@ class StagesController < ApplicationController
   # POST /projects/1/stages.xml
   def create
     @stage = current_project.stages.build(params[:stage])
+    @stage.tag_list = params[:stage][:tag_list].gsub(/"/, "").split(",")
 
     respond_to do |format|
       if @stage.save
@@ -65,6 +66,7 @@ class StagesController < ApplicationController
   # PUT /projects/1/stages/1.xml
   def update
     @stage = current_project.stages.find(params[:id])
+    @stage.tag_list = params[:stage][:tag_list].gsub(/"/, "").split(",")
     
     respond_to do |format|
       if @stage.update_attributes(params[:stage])
