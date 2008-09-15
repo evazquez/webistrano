@@ -1,6 +1,17 @@
 <h2>Welcome to Webistrano</h2>
 
 <fieldset class="fieldset">
+  <legend>Deploy By Tag</legend>
+    
+    <% @tags = tag_cloud %>
+    <% @tags.each do |tag| %>
+       <%= link_to tag.name, {:controller => "deployments", :action => "tag_deploy", :id => tag.name}, :confirm => "Are you sure?" %>
+    <% end %>
+  </fieldset>
+
+<br />
+
+<fieldset class="fieldset">
   <legend>Recent Deployments</legend>
   <% if @deployments.empty? %>
     <br/>
