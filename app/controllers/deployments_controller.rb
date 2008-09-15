@@ -1,6 +1,6 @@
 class DeploymentsController < ApplicationController
   
-  before_filter :load_stage
+  before_filter :load_stage, :except => :tag_deploy
   before_filter :ensure_deployment_possible, :only => [:new, :create]
 
   # GET /projects/1/stages/1/deployments
@@ -56,6 +56,19 @@ class DeploymentsController < ApplicationController
         format.xml  { render :xml => @deployment.errors.to_xml }
       end
     end
+  end
+  
+  def tag_deploy
+    @stages = Stage.find_tagged_with(params[:id])
+    @stages.each do |stage|
+      @deployment = stage.deployments.build
+      @deployment.user = current_user
+      @deployment.task = "deploy:setup"
+      @deployment.description = @deployment.task
+      @deployment.save
+      @deployment.deploy_in_background!
+    end
+    redirect_to home_path
   end
 
   protected
