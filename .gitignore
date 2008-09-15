@@ -1,2 +1,4 @@
 log/*.log
 vendor/plugins/*
+config/database.yml
+config/webistrano_config.rb
