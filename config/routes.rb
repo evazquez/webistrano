@@ -29,6 +29,8 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
+  map.resources :deployments, :member => {:tag_deploy => :get }
+  
   # RESTful auth
   map.resources :users,:member => {:deployments => :get}
   map.resources :sessions
