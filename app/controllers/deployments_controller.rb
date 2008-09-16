@@ -60,7 +60,7 @@ class DeploymentsController < ApplicationController
   
   def tag_deploy
      @stages = Stage.find_tagged_with(params[:id])
-     queue = DeploymentQueue::Manager.new("127.0.0.1", "9999")
+     queue = QueueManager.new("127.0.0.1", "9999")
      @stages.each do |stage|
        @deployment = stage.deployments.build
        @deployment.user = current_user

@@ -28,6 +28,7 @@
         <th>Status</th>
       </tr>
     <% for deployment in @deployments %>
+    <% puts deployment.stage %>
       <tr class="<%= cycle :even, :odd, :name => 'deployments' %>">
         <td>
           <%= link_to h(deployment.stage.project.name), project_path(deployment.stage.project) %>/<br />
