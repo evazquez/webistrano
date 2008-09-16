@@ -59,17 +59,18 @@ class DeploymentsController < ApplicationController
   end
   
   def tag_deploy
-    @stages = Stage.find_tagged_with(params[:id])
-    @stages.each do |stage|
-      @deployment = stage.deployments.build
-      @deployment.user = current_user
-      @deployment.task = "deploy:default"
-      @deployment.description = @deployment.task
-      @deployment.save
-      @deployment.deploy_in_background!
-    end
-    redirect_to home_path
-  end
+     @stages = Stage.find_tagged_with(params[:id])
+     queue = DeploymentQueue::Manager.new("127.0.0.1", "9999")
+     @stages.each do |stage|
+       @deployment = stage.deployments.build
+       @deployment.user = current_user
+       @deployment.task = "deploy:default"
+       @deployment.description = @deployment.task
+       @deployment.save
+       queue.push(@deployment.id)
+     end
+     redirect_to home_path
+   end
 
   protected
   def ensure_deployment_possible
